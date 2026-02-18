@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Riteek's YouTube Clone | Full Stack Portfolio</title>
+    
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
+    
+    <style>
+        :root { --yt-bg: #0f0f0f; --yt-white: #ffffff; --yt-border: #3f3f3f; --yt-red: #ff0000; }
+        body { background-color: var(--yt-bg); color: var(--yt-white); font-family: 'Roboto', sans-serif; overflow-x: hidden; }
+        
+        /* 1. Header & Search */
+        .navbar { background-color: var(--yt-bg); height: 65px; border-bottom: 1px solid #333; }
+        .search-box { background: #121212; border: 1px solid var(--yt-border); color: white; border-radius: 40px 0 0 40px; }
+        .search-btn { background: #222222; border: 1px solid var(--yt-border); color: white; border-radius: 0 40px 40px 0; padding: 0 20px; }
+
+        /* 2. Sidebar Navigation */
+        .sidebar { height: calc(100vh - 65px); border-right: 1px solid #333; position: sticky; top: 65px; overflow-y: auto; }
+        .sidebar-item { padding: 12px 20px; border-radius: 10px; cursor: pointer; transition: 0.2s; display: flex; align-items: center; }
+        .sidebar-item:hover { background: #272727; }
+        .sidebar-item i { font-size: 1.2rem; margin-right: 20px; }
+
+        /* 3. Video Grid & Player */
+        .video-card { cursor: pointer; transition: transform 0.2s; }
+        .video-card:hover { transform: scale(1.02); }
+        .thumb-wrapper { position: relative; width: 100%; border-radius: 12px; overflow: hidden; background: #222; }
+        .thumb-img { width: 100%; aspect-ratio: 16/9; object-fit: cover; }
+        
+        .player-container { display: none; margin-bottom: 2rem; }
+        .video-iframe-wrapper { position: relative; padding-bottom: 56.25%; height: 0; border-radius: 15px; overflow: hidden; background: #000; }
+        .video-iframe-wrapper iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; }
+
+        /* 4. Portfolio Branding */
+        .badge-dev { background: var(--yt-red); color: white; font-size: 0.7rem; padding: 2px 8px; border-radius: 4px; vertical-align: middle; }
+        
+        /* Auth Overlay */
+        #authSection { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.9); z-index: 9999; display: flex; align-items: center; justify-content: center; }
+    </style>
+</head>
+<body>
+
+<div id="authSection">
+    <div class="card p-4 text-dark" style="width: 380px; border-radius: 15px;">
+        <div class="text-center mb-4">
+            <i class="bi bi-youtube text-danger" style="font-size: 3rem;"></i>
+            <h3>Sign In</h3>
+            <p class="text-muted small">Connect to Spring Boot Backend (Simulated)</p>
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Email address</label>
+            <input type="email" id="userEmail" class="form-control" placeholder="riteek@dev.com">
+        </div>
+        <div class="mb-4">
+            <label class="form-label">Password</label>
+            <input type="password" id="userPass" class="form-control" placeholder="••••••••">
+        </div>
+        <button onclick="simulateAuth()" class="btn btn-primary w-100 py-2 fw-bold">Login & Fetch JWT</button>
+    </div>
+</div>
+
+<nav class="navbar sticky-top px-3">
+    <div class="container-fluid d-flex align-items-center">
+        <div class="d-flex align-items-center">
+            <i class="bi bi-list fs-3 me-3 pointer text-white"></i>
+            <h4 class="mb-0 text-white fw-bold d-flex align-items-center">
+                <i class="bi bi-youtube text-danger fs-2 me-1"></i>YouTube <span class="badge-dev ms-2">CLONE-V1</span>
+            </h4>
+        </div>
+
+        <div class="d-flex flex-grow-1 justify-content-center px-5">
+            <div class="input-group search-container" style="max-width: 600px;">
+                <input type="text" id="mainSearch" class="form-control search-box" placeholder="Search videos...">
+                <button class="btn search-btn" onclick="fetchVideosFromAPI()"><i class="bi bi-search"></i></button>
+            </div>
+            <div class="rounded-circle bg-dark p-2 ms-3 d-flex align-items-center justify-content-center" style="width: 40px; height: 40px;">
+                <i class="bi bi-mic-fill"></i>
+            </div>
+        </div>
+
+        <div class="d-flex align-items-center gap-4">
+            <i class="bi bi-camera-video fs-5 pointer"></i>
+            <i class="bi bi-bell fs-5 pointer"></i>
+            <div id="profileBadge" class="rounded-circle bg-info text-white text-center fw-bold" style="width: 32px; height: 32px; line-height: 32px;">R</div>
+        </div>
+    </div>
+</nav>
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-2 d-none d-md-block sidebar py-3">
+            <div class="sidebar-item bg-secondary bg-opacity-25 mb-1"><i class="bi bi-house-door-fill"></i> Home</div>
+            <div class="sidebar-item"><i class="bi bi-play-circle"></i> Shorts</div>
+            <div class="sidebar-item"><i class="bi bi-collection-play"></i> Subscriptions</div>
+            <hr class="border-secondary">
+            <div class="sidebar-item"><i class="bi bi-person-video"></i> Your Channel</div>
+            <div class="sidebar-item"><i class="bi bi-clock-history"></i> History</div>
+            <div class="sidebar-item"><i class="bi bi-hand-thumbs-up"></i> Liked Videos</div>
+        </div>
+
+        <div class="col-md-10 py-4 px-md-5">
+            
+            <div id="playerSection" class="player-container">
+                <div class="video-iframe-wrapper shadow-lg">
+                    <div id="ytPlayer"></div>
+                </div>
+                <div class="mt-3">
+                    <h3 id="currentVideoTitle" class="fw-bold"></h3>
+                    <div class="d-flex align-items-center justify-content-between">
+                        <div class="d-flex align-items-center mt-2">
+                            <div class="rounded-circle bg-danger me-2 shadow" style="width: 40px; height: 40px;"></div>
+                            <div>
+                                <p class="mb-0 fw-bold">Riteek Production <i class="bi bi-check-circle-fill text-secondary small"></i></p>
+                                <p class="mb-0 text-secondary small">2.4M Subscribers</p>
+                            </div>
+                            <button class="btn btn-light rounded-pill px-4 ms-4 fw-bold">Subscribe</button>
+                        </div>
+                        <div class="d-flex gap-2">
+                            <div class="btn-group bg-dark rounded-pill">
+                                <button class="btn btn-dark border-0 rounded-start-pill px-3" onclick="handleLike()"><i class="bi bi-hand-thumbs-up me-2"></i><span id="likeCountDisplay">240</span></button>
+                                <button class="btn btn-dark border-0 rounded-end-pill px-3"><i class="bi bi-hand-thumbs-down"></i></button>
+                            </div>
+                            <button class="btn btn-dark rounded-pill px-3"><i class="bi bi-share me-1"></i> Share</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="videoGrid" class="row row-cols-1 row-cols-sm-2 row-cols-lg-3 row-cols-xl-4 g-4">
+                </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://www.youtube.com/iframe_api"></script>
+
+<script>
+    // 🧠 [ARCHITECTURE 3.0] BACKEND LOGIC SIMULATION
+    const API_KEY = "AIzaSyCaMRbPS-h1qOH1vANnIg7ILW8cu88cQO8";
+; // REQUIRED FOR FETCHING
+    let player;
+    let currentLikes = 240;
+
+    // 🔐 AUTHENTICATION SIMULATION
+    function simulateAuth() {
+        const email = document.getElementById('userEmail').value;
+        if(email.includes('@')) {
+            // Mock JWT Generation
+            localStorage.setItem('yt_token', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...');
+            document.getElementById('authSection').style.display = 'none';
+            fetchVideosFromAPI("trending music 2024");
+        } else {
+            alert("Enter a valid email (Backend Security Check)");
+        }
+    }
+
+    // ⚙️ INITIALIZE PLAYER (Spring Boot /watch/:id logic)
+    function onYouTubeIframeAPIReady() {
+        player = new YT.Player('ytPlayer', {
+            height: '100%',
+            width: '100%',
+            videoId: '',
+            playerVars: { 'autoplay': 1, 'modestbranding': 1 }
+        });
+    }
+
+    // 🚀 [ARCHITECTURE 5.0] CORE BACKEND APIs (FETCHING DATA)
+    async function fetchVideosFromAPI(query = "Riteek Full Stack") {
+        const searchQuery = document.getElementById('mainSearch').value || query;
+        const endpoint = `https://www.googleapis.com/youtube/v3/search?part=snippet&maxResults=16&q=${searchQuery}&type=video&key=${API_KEY}`;
+
+        try {
+            const response = await fetch(endpoint);
+            const data = await response.json();
+            renderVideoGrid(data.items);
+        } catch (err) {
+            console.error("API Call Failed - Backend unreachable or Key missing");
+        }
+    }
+
+    // 🖥️ [ARCHITECTURE 2.0] FRONTEND COMPONENTS (GRID RENDERING)
+    function renderVideoGrid(videos) {
+        const grid = document.getElementById('videoGrid');
+        grid.innerHTML = '';
+
+        videos.forEach(video => {
+            const vidId = video.id.videoId;
+            const title = video.snippet.title;
+            const thumb = video.snippet.thumbnails.medium.url;
+            const channel = video.snippet.channelTitle;
+
+            const videoCol = document.createElement('div');
+            videoCol.className = 'col';
+            videoCol.innerHTML = `
+                <div class="video-card">
+                    <div class="thumb-wrapper mb-2 shadow" onclick="playVideo('${vidId}', '${title.replace(/'/g, "\\'")}')">
+                        <img src="${thumb}" class="thumb-img" alt="thumbnail">
+                    </div>
+                    <div class="d-flex gap-2">
+                        <div class="rounded-circle bg-secondary flex-shrink-0" style="width: 36px; height: 36px;"></div>
+                        <div>
+                            <h6 class="mb-1 fw-bold small" onclick="playVideo('${vidId}', '${title.replace(/'/g, "\\'")}')">${title}</h6>
+                            <p class="mb-0 text-secondary small">${channel}</p>
+                            <p class="text-secondary small">850K views • 4 days ago</p>
+                        </div>
+                    </div>
+                </div>
+            `;
+            grid.appendChild(videoCol);
+        });
+    }
+
+    // 🎬 WATCH API LOGIC
+    function playVideo(id, title) {
+        document.getElementById('playerSection').style.display = 'block';
+        player.loadVideoById(id);
+        document.getElementById('currentVideoTitle').innerText = title;
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    // 🔥 [ARCHITECTURE 7.0] REAL LIKE SYSTEM LOGIC
+    function handleLike() {
+        currentLikes++;
+        document.getElementById('likeCountDisplay').innerText = currentLikes + "K";
+        // In real backend: POST /api/videos/{id}/like
+    }
+
+</script>
+
+</body>
+</html>
