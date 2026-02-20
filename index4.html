@@ -1,0 +1,313 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Riteek Doble | Portfolio</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#6366f1',
+                        secondary: '#1e293b',
+                        accent: '#22d3ee',
+                    },
+                    fontFamily: {
+                        poppins: ['Poppins', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <style>
+        html { scroll-behavior: smooth; }
+        .gradient-text {
+            background: linear-gradient(135deg, #6366f1, #22d3ee);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .gradient-bg {
+            background: linear-gradient(135deg, #6366f1, #22d3ee);
+        }
+        .card-hover:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+        }
+        .profile-img {
+            width: 300px;
+            height: 300px;
+            object-fit: cover;
+            border: 4px solid white;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+        }
+    </style>
+</head>
+<body class="font-poppins bg-gray-50 text-gray-800">
+
+    <!-- Navigation -->
+    <nav class="fixed w-full bg-white/90 backdrop-blur-sm shadow-sm z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <a href="#" class="text-2xl font-bold text-primary">
+                    <i class="fas fa-code mr-2"></i>Riteek<span class="text-secondary">Doble</span>
+                </a>
+                
+                <!-- Mobile menu button -->
+                <button id="mobile-menu-btn" class="md:hidden p-2">
+                    <i class="fas fa-bars text-xl"></i>
+                </button>
+                
+                <!-- Desktop Menu -->
+                <div class="hidden md:flex space-x-8">
+                    <a href="#home" class="hover:text-primary transition">Home</a>
+                    <a href="#about" class="hover:text-primary transition">About</a>
+                    <a href="#skills" class="hover:text-primary transition">Skills</a>
+                    <a href="#projects" class="hover:text-primary transition">Projects</a>
+                    <a href="#contact" class="hover:text-primary transition">Contact</a>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="hidden md:hidden bg-white border-t">
+            <a href="#home" class="block py-3 px-4 hover:bg-gray-50">Home</a>
+            <a href="#about" class="block py-3 px-4 hover:bg-gray-50">About</a>
+            <a href="#skills" class="block py-3 px-4 hover:bg-gray-50">Skills</a>
+            <a href="#projects" class="block py-3 px-4 hover:bg-gray-50">Projects</a>
+            <a href="#contact" class="block py-3 px-4 hover:bg-gray-50">Contact</a>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="min-h-screen flex items-center pt-16 bg-gradient-to-br from-indigo-50 via-white to-cyan-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
+            <div class="grid md:grid-cols-2 gap-12 items-center">
+                <div class="order-2 md:order-1">
+                    <p class="text-primary font-medium mb-2">👋 Hello, I'm</p>
+                    <h1 class="text-5xl md:text-6xl font-bold mb-4">
+                        Riteek <span class="gradient-text">Doble</span>
+                    </h1>
+                    <p class="text-xl text-gray-600 mb-6">
+                        Full Stack Developer | Fresher | Passionate about building amazing web experiences
+                    </p>
+                    <div class="flex flex-wrap gap-4">
+                        <a href="#projects" class="px-8 py-3 bg-primary text-white rounded-full font-semibold hover:bg-indigo-600 transition shadow-lg hover:shadow-xl">
+                            View My Work
+                        </a>
+                        <a href="#contact" class="px-8 py-3 border-2 border-secondary text-secondary rounded-full font-semibold hover:bg-secondary hover:text-white transition">
+                            Contact Me
+                        </a>
+                    </div>
+                    
+                    <!-- Social Links -->
+                    <div class="flex gap-4 mt-8">
+                        <a href="#" class="w-12 h-12 bg-white shadow-md rounded-full flex items-center justify-center hover:bg-primary hover:text-white transition">
+                            <i class="fab fa-github text-xl"></i>
+                        </a>
+                        <a href="#" class="w-12 h-12 bg-white shadow-md rounded-full flex items-center justify-center hover:bg-blue-600 hover:text-white transition">
+                            <i class="fab fa-linkedin text-xl"></i>
+                        </a>
+                        <a href="#" class="w-12 h-12 bg-white shadow-md rounded-full flex items-center justify-center hover:bg-blue-400 hover:text-white transition">
+                            <i class="fab fa-twitter text-xl"></i>
+                        </a>
+                        <a href="#" class="w-12 h-12 bg-white shadow-md rounded-full flex items-center justify-center hover:bg-red-500 hover:text-white transition">
+                            <i class="fas fa-envelope text-xl"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- TERA IMAGE YAHAN -->
+                <div class="order-1 md:order-2 flex justify-center">
+                    <div class="relative">
+                        <img src="/Portfolio_Project/img/riteek.jpg" alt="Riteek Doble" class="profile-img rounded-full">
+                        <div class="absolute -bottom-4 -right-4 bg-white p-4 rounded-xl shadow-lg">
+                            <p class="text-sm font-bold text-secondary">Fresher</p>
+                            <p class="text-xs text-green-500">● Open to Work</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="py-20 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <p class="text-primary font-semibold uppercase tracking-wider mb-2">About Me</p>
+                <h2 class="text-4xl font-bold text-secondary">Get To Know Me</h2>
+            </div>
+            
+            <div class="grid md:grid-cols-2 gap-12 items-center">
+                <div>
+                    <h3 class="text-2xl font-bold mb-4">I'm a passionate fresher developer</h3>
+                    <p class="text-gray-600 mb-6 leading-relaxed">
+                        Hi! I'm Riteek Doble, a fresh computer science graduate passionate about web development. 
+                        I have strong fundamentals in HTML, CSS, JavaScript, and various modern frameworks.
+                    </p>
+                    <p class="text-gray-600 mb-6 leading-relaxed">
+                        I'm eager to learn, grow, and contribute to real-world projects. 
+                        I love solving problems and building user-friendly applications. 
+                        Currently looking for opportunities to kickstart my career in tech.
+                    </p>
+                    
+                    <div class="grid grid-cols-2 gap-4">
+                        <div class="bg-indigo-50 p-4 rounded-xl text-center">
+                            <p class="text-3xl font-bold text-primary">5+</p>
+                            <p class="text-sm text-gray-600">Projects</p>
+                        </div>
+                        <div class="bg-cyan-50 p-4 rounded-xl text-center">
+                            <p class="text-3xl font-bold text-cyan-600">100%</p>
+                            <p class="text-sm text-gray-600">Dedication</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="grid grid-cols-2 gap-4">
+                    <div class="bg-gradient-to-br from-indigo-500 to-purple-600 p-6 rounded-2xl text-white text-center card-hover transition duration-300">
+                        <i class="fas fa-laptop-code text-4xl mb-4"></i>
+                        <h4 class="font-bold">Web Development</h4>
+                    </div>
+                    <div class="bg-gradient-to-br from-cyan-500 to-blue-600 p-6 rounded-2xl text-white text-center card-hover transition duration-300 mt-8">
+                        <i class="fas fa-mobile-alt text-4xl mb-4"></i>
+                        <h4 class="font-bold">Responsive Design</h4>
+                    </div>
+                    <div class="bg-gradient-to-br from-pink-500 to-rose-600 p-6 rounded-2xl text-white text-center card-hover transition duration-300">
+                        <i class="fas fa-database text-4xl mb-4"></i>
+                        <h4 class="font-bold">Database</h4>
+                    </div>
+                    <div class="bg-gradient-to-br from-amber-500 to-orange-600 p-6 rounded-2xl text-white text-center card-hover transition duration-300 mt-8">
+                        <i class="fas fa-brain text-4xl mb-4"></i>
+                        <h4 class="font-bold">Problem Solving</h4>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Skills Section -->
+    <section id="skills" class="py-20 bg-gray-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <p class="text-primary font-semibold uppercase tracking-wider mb-2">My Skills</p>
+                <h2 class="text-4xl font-bold text-secondary">Technologies I Know</h2>
+            </div>
+            
+            <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+                <!-- Skill 1 -->
+                <div class="bg-white p-6 rounded-xl shadow-md text-center card-hover transition duration-300">
+                    <i class="fab fa-html5 text-5xl text-orange-500 mb-4"></i>
+                    <h4 class="font-bold text-lg">HTML5</h4>
+                    <div class="w-full bg-gray-200 rounded-full h-2 mt-3">
+                        <div class="bg-orange-500 h-2 rounded-full" style="width: 95%"></div>
+                    </div>
+                    <p class="text-sm text-gray-500 mt-2">95%</p>
+                </div>
+                
+                <!-- Skill 2 -->
+                <div class="bg-white p-6 rounded-xl shadow-md text-center card-hover transition duration-300">
+                    <i class="fab fa-css3-alt text-5xl text-blue-500 mb-4"></i>
+                    <h4 class="font-bold text-lg">CSS3</h4>
+                    <div class="w-full bg-gray-200 rounded-full h-2 mt-3">
+                        <div class="bg-blue-500 h-2 rounded-full" style="width: 90%"></div>
+                    </div>
+                    <p class="text-sm text-gray-500 mt-2">90%</p>
+                </div>
+                
+                <!-- Skill 3 -->
+                <div class="bg-white p-6 rounded-xl shadow-md text-center card-hover transition duration-300">
+                    <i class="fab fa-js text-5xl text-yellow-500 mb-4"></i>
+                    <h4 class="font-bold text-lg">JavaScript</h4>
+                    <div class="w-full bg-gray-200 rounded-full h-2 mt-3">
+                        <div class="bg-yellow-500 h-2 rounded-full" style="width: 85%"></div>
+                    </div>
+                    <p class="text-sm text-gray-500 mt-2">85%</p>
+                </div>
+                
+                <!-- Skill 4 -->
+                <div class="bg-white p-6 rounded-xl shadow-md text-center card-hover transition duration-300">
+                    <i class="fab fa-react text-5xl text-cyan-500 mb-4"></i>
+                    <h4 class="font-bold text-lg">React</h4>
+                    <div class="w-full bg-gray-200 rounded-full h-2 mt-3">
+                        <div class="bg-cyan-500 h-2 rounded-full" style="width: 80%"></div>
+                    </div>
+                    <p class="text-sm text-gray-500 mt-2">80%</p>
+                </div>
+                
+                <!-- Skill 5 -->
+                <div class="bg-white p-6 rounded-xl shadow-md text-center card-hover transition duration-300">
+                    <i class="fab fa-node text-5xl text-green-500 mb-4"></i>
+                    <h4 class="font-bold text-lg">Node.js</h4>
+                    <div class="w-full bg-gray-200 rounded-full h-2 mt-3">
+                        <div class="bg-green-500 h-2 rounded-full" style="width: 75%"></div>
+                    </div>
+                    <p class="text-sm text-gray-500 mt-2">75%</p>
+                </div>
+                
+                <!-- Skill 6 -->
+                <div class="bg-white p-6 rounded-xl shadow-md text-center card-hover transition duration-300">
+                    <i class="fab fa-python text-5xl text-blue-500 mb-4"></i>
+                    <h4 class="font-bold text-lg">Python</h4>
+                    <div class="w-full bg-gray-200 rounded-full h-2 mt-3">
+                        <div class="bg-blue-500 h-2 rounded-full" style="width: 80%"></div>
+                    </div>
+                    <p class="text-sm text-gray-500 mt-2">80%</p>
+                </div>
+                
+                <!-- Skill 7 -->
+                <div class="bg-white p-6 rounded-xl shadow-md text-center card-hover transition duration-300">
+                    <i class="fas fa-database text-5xl text-teal-500 mb-4"></i>
+                    <h4 class="font-bold text-lg">SQL</h4>
+                    <div class="w-full bg-gray-200 rounded-full h-2 mt-3">
+                        <div class="bg-teal-500 h-2 rounded-full" style="width: 75%"></div>
+                    </div>
+                    <p class="text-sm text-gray-500 mt-2">75%</p>
+                </div>
+                
+                <!-- Skill 8 -->
+                <div class="bg-white p-6 rounded-xl shadow-md text-center card-hover transition duration-300">
+                    <i class="fab fa-git-alt text-5xl text-orange-600 mb-4"></i>
+                    <h4 class="font-bold text-lg">Git</h4>
+                    <div class="w-full bg-gray-200 rounded-full h-2 mt-3">
+                        <div class="bg-orange-600 h-2 rounded-full" style="width: 85%"></div>
+                    </div>
+                    <p class="text-sm text-gray-500 mt-2">85%</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section id="projects" class="py-20 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <p class="text-primary font-semibold uppercase tracking-wider mb-2">My Projects</p>
+                <h2 class="text-4xl font-bold text-secondary">Featured Work</h2>
+            </div>
+            
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Project 1 -->
+                <div class="bg-white rounded-2xl shadow-lg overflow-hidden card-hover transition duration-300">
+                    <div class="h-48 bg-gradient-to-r from-indigo-500 to-purple-600 flex items-center justify-center">
+                        <i class="fas fa-shopping-cart text-white text-6xl"></i>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold mb-2">E-Commerce Website</h3>
+                        <p class="text-gray-600 mb-4">A full-featured online shopping platform with cart functionality.</p>
+                        <div class="flex flex-wrap gap-2 mb-4">
+                            <span class="px-3 py-1 bg-indigo-100 text-indigo-600 text-sm rounded-full">HTML</span>
+                            <span class="px-3 py-1 bg-indigo-100 text-indigo-600 text-sm rounded-full">CSS</span>
+                            <span class="px-3 py
